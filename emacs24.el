@@ -14,6 +14,27 @@
 ;;インストールしたパッケージにロードパスを通してロードする
 (package-initialize)
 
+;; for auto-install
+;; (2) And put the following in your ~/.emacs startup file:
+(require 'auto-install)
+;; (3) Add this to your ~/.emacs to optionally specify a download directory:
+(setq auto-install-directory "~/.emacs.d/elisp/")
+;; (4) Optionally, if your computer is always connected Internet when Emacs start up,
+;;     I recommend you add below to your ~/.emacs, to update package name when start up:
+(auto-install-update-emacswiki-package-name t)
+;;     And above setup is not necessary, because AutoInstall will automatically update
+;;     package name when you just first call `auto-install-from-emacswiki',
+;;     above setup just avoid *delay* when you first call `auto-install-from-emacswiki'.
+;;
+;; (5) I recommend you add below to your ~/.emacs for install-elisp users:
+(auto-install-compatibility-setup)
+
+;; anything
+(require 'anything)
+(require 'anything-config)
+(add-to-list 'anything-sources 'anything-c-source-emacs-commands)
+(define-key global-map (kbd "C-x C-b") 'anything)
+
 
 ;; font
 ;; 固定等幅フォント
