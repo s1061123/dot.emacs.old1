@@ -142,7 +142,8 @@
 ;; for emcas24
 (when (>= emacs-major-version 24)
   (load "~/.emacs.d/emacs24"))
-(when w32-initialized
+;; for Win32
+(when (bound-and-true-p w32-initialized)
   (load "~/.emacs.d/win32"))
 
 ;;;
