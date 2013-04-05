@@ -142,6 +142,8 @@
 ;; for emcas24
 (when (>= emacs-major-version 24)
   (load "~/.emacs.d/emacs24"))
+(when w32-initialized
+  (load "~/.emacs.d/win32"))
 
 ;;;
 ;;; end of file
