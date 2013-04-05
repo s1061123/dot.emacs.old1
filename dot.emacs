@@ -121,6 +121,7 @@
 (autoload 'wl "wl" "Wanderlust" t)
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+(setq gnutls-min-prime-bits 1024)
 (require 'elscreen-wl)
 (require 'wl-util)
 ;; to read html mails...

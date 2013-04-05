@@ -35,6 +35,34 @@
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
 (define-key global-map (kbd "C-x C-b") 'anything)
 
+;;helm
+;(require 'helm)
+;(require 'helm-config)
+;(helm-mode 1)
+
+;; from Yoshiori
+;(defun my-helm ()
+;  (interactive)
+;  (helm :sources '(
+;                   helm-c-source-buffers-list
+;                   helm-c-source-recentf
+;                   helm-c-source-files-in-current-dir
+;                   helm-c-source-mac-spotlight
+;                   helm-c-source-buffer-not-found)
+;        :buffer "*my helm*"))
+
+;(global-set-key (kbd "C-x C-b") 'my-helm)
+;(global-set-key (kbd "M-x") 'helm-M-x)
+
+;(setq helm-samewindow nil)
+;(push '("*helm-M-x*") popwin:special-display-config)
+;; emacsの終了時に、履歴を保存する
+;(remove-hook 'kill-emacs-hook 'helm-c-adaptive-save-history)
+;; ディレイは0.2秒
+;(setq helm-input-idle-delay 0.02)
+;; 候補のディレクトリが一つしかない場合に、自動的に展開しない
+;(setq helm-ff-auto-update-initial-value nil)
+
 
 ;; font
 ;; 固定等幅フォント
