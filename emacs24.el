@@ -35,6 +35,12 @@
 (add-to-list 'anything-sources 'anything-c-source-emacs-commands)
 (define-key global-map (kbd "C-x C-b") 'anything)
 
+;;
+(require 'tramp)
+(setq default-process-coding-system '(sjis-dos . sjis-unix))
+;(setq-default tramp-default-method "plink")
+(setq-default tramp-default-method "pscp")
+
 ;;helm
 ;(require 'helm)
 ;(require 'helm-config)
