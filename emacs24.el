@@ -37,8 +37,9 @@
 
 ;;
 (require 'tramp)
-(setq default-process-coding-system '(sjis-dos . sjis-unix))
-;(setq-default tramp-default-method "plink")
+;(setq default-process-coding-system '(sjis-dos . sjis-unix))
+(setq default-process-coding-system '(utf-8 . utf-8))
+;(setq-default tramp-default-method "plink") 
 (setq-default tramp-default-method "pscp")
 
 ;;helm

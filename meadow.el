@@ -1,13 +1,13 @@
-;;;; -*- mode: emacs-lisp; coding: iso-2022-7bit -*-
+;;;; -*- mode: emacs-lisp; coding: utf-8 -*-
 ;;; 
 ;;; dot.emacs for Meadow (s1061123@)
 ;;;
 
-;; ;;; Mule-UCS $B$N@_Dj(B
-;; ;; ftp://ftp.m17n.org/pub/mule/Mule-UCS/ $B$,(B $B%*%U%#%7%c%k%5%$%H$G$9$,!"(B
-;; ;; http://www.meadowy.org/~shirai/elisp/mule-ucs.tar.gz $B$K4{CN$N%Q%C%A(B
-;; ;; $B$r$9$Y$FE,MQ$7$?$b$N$,$*$$$F$"$j$^$9!#(B
-;; ;; (set-language-environment) $B$NA0$K@_Dj$7$^$9(B
+;; ;;; Mule-UCS の設定
+;; ;; ftp://ftp.m17n.org/pub/mule/Mule-UCS/ が オフィシャルサイトですが、
+;; ;; http://www.meadowy.org/~shirai/elisp/mule-ucs.tar.gz に既知のパッチ
+;; ;; をすべて適用したものがおいてあります。
+;; ;; (set-language-environment) の前に設定します
 (require 'jisx0213)
 (set-language-environment "Japanese")
 (setq default-input-method "japanese-skk")
@@ -16,7 +16,7 @@
 (require 'skk-autoloads)
 (setq skk-tut-file "C:/meadow/packages/etc/skk/SKK.tut")
 
-;;; $B%^%&%9%+!<%=%k$r>C$9@_Dj(B
+;;; マウスカーソルを消す設定
 (setq w32-hide-mouse-on-key t)
 (setq w32-hide-mouse-timeout 5000)
 
@@ -51,19 +51,19 @@
 	 strict
 	 (w32-logfont "MS Gothic" 0 -16 700 0   t nil nil 128 1 3 0)
 	 ((spacing . -1))))))
-; $B5/F0;~$*$h$S(Bnew-frame$B;~$N%U%l!<%`(B($B%&%#%s%I%&(B)$B$N@_Dj!#(B
+; 起動時およびnew-frame時のフレーム(ウィンドウ)の設定。
 (add-to-list 'default-frame-alist '(font . "MS Gothic 16"))
-; $B8=:_$N%U%l!<%`$N@_Dj(B(.emacs$BCf$G$O>JN,2D(B)
+; 現在のフレームの設定(.emacs中では省略可)
 ;(set-frame-font "MS Gothic 16")
 
-;;; BDF $B%U%)%s%H@_Dj(B
-;;; ($BJ}K!$=$N(B1) Netinstall $B%Q%C%1!<%8$r;H$&J}K!(B
-;;; misc $B$H(B intlfonts $B%Q%C%1!<%8$rF~$l$^$9!#(B
-;;; .emacs$B$N@_Dj(B
+;;; BDF フォント設定
+;;; (方法その1) Netinstall パッケージを使う方法
+;;; misc と intlfonts パッケージを入れます。
+;;; .emacsの設定
 ;(setq bdf-use-intlfonts16 t)
 ;(setq initial-frame-alist '((font . "intlfonts16")))
 
-;; $B=i4|%U%l!<%`$N@_Dj(B
+;; 初期フレームの設定
 (setq default-frame-alist
       (append (list '(foreground-color . "black")
 		    '(background-color . "LemonChiffon")
@@ -81,35 +81,35 @@
 		    '(left . 300))
 	      default-frame-alist))
 
-;; ;;; shell $B$N@_Dj(B
+;; ;;; shell の設定
 
-;; ;;; Cygwin $B$N(B bash $B$r;H$&>l9g(B
+;; ;;; Cygwin の bash を使う場合
 ;;(setq explicit-shell-file-name "bash.exe")
 ;;(setq shell-file-name "sh")
 ;;(setq shell-command-switch "-c") 
 
-;; ;;; Virtually UN*X!$B$K$"$k(B tcsh.exe $B$r;H$&>l9g(B
+;; ;;; Virtually UN*X!にある tcsh.exe を使う場合
 ;; (setq explicit-shell-file-name "tcsh.exe") 
 ;; (setq shell-file-name "tcsh.exe") 
 ;; (setq shell-command-switch "-c") 
 
-;; ;;; WindowsNT $B$KIUB0$N(B CMD.EXE $B$r;H$&>l9g!#(B
+;; ;;; WindowsNT に付属の CMD.EXE を使う場合。
 ;;(setq explicit-shell-file-name "CMD.EXE") 
 ;;(setq shell-file-name "CMD.EXE") 
 ;;(setq shell-command-switch "\\/c") 
 
-;; ;;; WindowsNT $B$KIUB0$N(B CMD.EXE $B$r;H$&>l9g!#(B
+;; ;;; WindowsNT に付属の CMD.EXE を使う場合。
 (setq explicit-shell-file-name "cmdproxy.EXE") 
 (setq shell-file-name "cmdproxy.EXE") 
 (setq shell-command-switch "\\/c") 
 
-;; ;;; browse-url $B$N@_Dj(B
+;; ;;; browse-url の設定
 ;; (global-set-key [S-mouse-2] 'browse-url-at-mouse)
 
-;;; $B0u:~$N@_Dj(B
-;; $B$3$N@_Dj$G(B M-x print-buffer RET $B$J$I$G$N0u:~$,$G$-$k$h$&$K$J$j$^$9(B
+;;; 印刷の設定
+;; この設定で M-x print-buffer RET などでの印刷ができるようになります
 ;;
-;;  notepad $B$KM?$($k%Q%i%a!<%?$N7A<0$N@_Dj(B
+;;  notepad に与えるパラメータの形式の設定
 (define-process-argument-editing "notepad"
   (lambda (x) (general-process-argument-editing-function x nil t)))
 
@@ -119,8 +119,8 @@
   (interactive)
   (let ((tmpfile (convert-standard-filename (buffer-name)))
 	   (w32-start-process-show-window t)
-	   ;; $B$b$7!"(Bdos $BAk$,8+$($F$$$d$J?M$O>e5-$N(B `t' $B$r(B `nil' $B$K$7$^$9(B
-	   ;; $B$?$@$7!"(B`nil' $B$K$9$k$H(B Meadow $B$,8G$^$k4D6-$b$"$k$+$b$7$l$^$;$s(B
+	   ;; もし、dos 窓が見えていやな人は上記の `t' を `nil' にします
+	   ;; ただし、`nil' にすると Meadow が固まる環境もあるかもしれません
 	   (coding-system-for-write w32-system-coding-system))
     (while (string-match "[/\\]" tmpfile)
 	 (setq tmpfile (replace-match "_" t nil tmpfile)))
@@ -133,14 +133,14 @@
 
 (setq print-region-function 'w32-print-region)
 
-;; ;;; fakecygpty $B$N@_Dj(B
-;; ;; $B$3$N@_Dj$G(B cygwin $B$N2>A[C<Kv$rMW5a$9$k%W%m%0%i%`$r(B Meadow $B$+$i(B
-;; ;; $B07$($k$h$&$K$J$j$^$9(B
+;; ;;; fakecygpty の設定
+;; ;; この設定で cygwin の仮想端末を要求するプログラムを Meadow から
+;; ;; 扱えるようになります
 (setq mw32-process-wrapper-alist
       '(("/\\(bash\\|openssl\\|tcsh\\|svn\\|ssh\\|gpg[esvk]?\\)\\.exe" .
 	 (nil . ("fakecygpty.exe" . set-process-connection-type-pty)))))
 
-;;; argument-editing $B$N@_Dj(B
+;;; argument-editing の設定
 (require 'mw32script)
 (mw32script-init)
 
@@ -155,8 +155,8 @@
 	 (setq tramp-default-method "plink")))
   )
 
-;; ;;; $B%+!<%=%k$N@_Dj(B
-(set-cursor-type 'box)            ; Meadow-1.10$B8_49(B (SKK$BEy$G?'$,JQ$k@_Dj(B)
-;; ;; (set-cursor-type 'hairline-caret) ; $B=DK@%-%c%l%C%H(B
+;; ;;; カーソルの設定
+(set-cursor-type 'box)            ; Meadow-1.10互換 (SKK等で色が変る設定)
+;; ;; (set-cursor-type 'hairline-caret) ; 縦棒キャレット
 
 
