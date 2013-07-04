@@ -1,15 +1,15 @@
-;;;; -*- mode: emacs-lisp; coding: iso-2022-7bit -*-
+;;;; -*- mode: emacs-lisp; coding:  Coding: utf-8 -*-
 ;;;;
 ;;;;   private tools (s1061123@)
 ;;;;
 
-;;$B3,>h$r5a$a$k(B x^y (a = 1$B$O8GDj(B)
+;;階乗を求める x^y (a = 1は固定)
 (defun calc-pow (x y &optional a)
   (if (null a) (setq a 1))
   (if (eq y 0) a
     (calc-pow x (- y 1) (* a x))))
 
-;; 16$B?J?tI=5-$N%7%s%\%k(B($B?t;z(B+$B1Q?t;z(B)$B$r(B10$B?J$KJQ49$9$k4X?t(B($B%F!<%V%kFbJq(B)
+;; 16進数表記のシンボル(数字+英数字)を10進に変換する関数(テーブル内包)
 (defun calc-chartodec_d (h)
   (setq h (downcase h))
   (let
@@ -29,17 +29,17 @@
       (calc-hextodecs (substring h 1) newans))
     ))
 
-					; 16$B?J"*(B10$B?JJQ494X?t(B
+					; 16進→10進変換関数
 (defun calc-hextodecs-q (s)
   (interactive "shex number:\n")
   (message "dec: %s" (calc-hextodecs s)))
 
-;; 10$B?J"*(B16$B?JJQ494X?t(B
+;; 10進→16進変換関数
 (defun calc-dectohexs-q (i)   
   (interactive  "ndec number:\n")
   (message "hex: %s" (format "%x" i)))
 
-					; $BJ8;zNsCm$N@hF,$N(B.$B$rGS=|$9$k!%(B
+					; 文字列注の先頭の.を排除する．
 (defun calc-elimperiod (str) 
   (let ((matchidx (string-match "^\\." str)))
     (if (null matchidx) str (substring str  (+ matchidx 1)))))
@@ -99,7 +99,7 @@
     )
   )
 
-;; mcolm$B$G2~9T$9$k(B
+;; mcolmで改行する
 (defun add-newline (mcolm) 
   (interactive "nmaxcolumn:\n")
   (let 

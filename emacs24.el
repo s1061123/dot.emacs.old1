@@ -1,4 +1,4 @@
-;;;; -*- mode: emacs-lisp; coding: iso-2022-7bit -*-
+;;;; -*- mode: emacs-lisp; coding:  Coding: utf-8 -*-
 ;;; 
 ;;; dot.emacs24 (s1061123@)
 ;;;
@@ -6,12 +6,12 @@
 ;;
 ;; package.el
 (require 'package)
-;;$B%j%]%8%H%j$K(BMarmalade$B$rDI2C(B
+;;リポジトリにMarmaladeを追加
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-;;$B%$%s%9%H!<%k$9$k%G%#%l%/%H%j$r;XDj(B
+;;インストールするディレクトリを指定
 (setq package-user-dir (concat user-emacs-directory "vendor/elpa"))
-;;$B%$%s%9%H!<%k$7$?%Q%C%1!<%8$K%m!<%I%Q%9$rDL$7$F%m!<%I$9$k(B
+;;インストールしたパッケージにロードパスを通してロードする
 (package-initialize)
 
 ;; for auto-install
@@ -62,35 +62,35 @@
 
 ;(setq helm-samewindow nil)
 ;(push '("*helm-M-x*") popwin:special-display-config)
-;; emacs$B$N=*N;;~$K!"MzNr$rJ]B8$9$k(B
+;; emacsの終了時に、履歴を保存する
 ;(remove-hook 'kill-emacs-hook 'helm-c-adaptive-save-history)
-;; $B%G%#%l%$$O(B0.2$BIC(B
+;; ディレイは0.2秒
 ;(setq helm-input-idle-delay 0.02)
-;; $B8uJd$N%G%#%l%/%H%j$,0l$D$7$+$J$$>l9g$K!"<+F0E*$KE83+$7$J$$(B
+;; 候補のディレクトリが一つしかない場合に、自動的に展開しない
 ;(setq helm-ff-auto-update-initial-value nil)
 
 
 ;; font
-;; $B8GDjEyI}%U%)%s%H(B
-;(set-face-attribute 'fixed-pitch    nil :family "BDF$BEl1@%4%7%C%/(B")
-;; $B2DJQI}%U%)%s%H(B
-;(set-face-attribute 'variable-pitch nil :family "BDF$BEl1@%4%7%C%/(B")
-;(add-to-list 'default-frame-alist '(font . "BDF$BEl1@%4%7%C%/(B-12"))
-;(set-face-font 'font-lock-comment-face       "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-string-face        "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-keyword-face       "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-builtin-face       "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-function-name-face "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-variable-name-face "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-type-face          "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-constant-face      "BDF$BEl1@%4%7%C%/(B-12")
-;(set-face-font 'font-lock-warning-face       "BDF$BEl1@%4%7%C%/(B-12")
+;; 固定等幅フォント
+;(set-face-attribute 'fixed-pitch    nil :family "BDF東雲ゴシック")
+;; 可変幅フォント
+;(set-face-attribute 'variable-pitch nil :family "BDF東雲ゴシック")
+;(add-to-list 'default-frame-alist '(font . "BDF東雲ゴシック-12"))
+;(set-face-font 'font-lock-comment-face       "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-string-face        "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-keyword-face       "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-builtin-face       "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-function-name-face "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-variable-name-face "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-type-face          "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-constant-face      "BDF東雲ゴシック-12")
+;(set-face-font 'font-lock-warning-face       "BDF東雲ゴシック-12")
 
-;;; font-lock$B$N@_Dj(B
+;;; font-lockの設定
 (global-font-lock-mode t)
 
 ;; Initial Frame
-;; $B=i4|%U%l!<%`$N@_Dj(B
+;; 初期フレームの設定
 (setq default-frame-alist
       (append (list '(foreground-color . "black")
 		    '(background-color . "LemonChiffon")
