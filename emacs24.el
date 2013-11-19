@@ -1,4 +1,4 @@
-;;;; -*- mode: emacs-lisp; coding:  Coding: utf-8 -*-
+;;;; -*- mode: emacs-lisp; coding: utf-8 -*-
 ;;; 
 ;;; dot.emacs24 (s1061123@)
 ;;;
@@ -42,6 +42,16 @@
 ;(setq-default tramp-default-method "plink") 
 (setq-default tramp-default-method "pscp")
 
+;;org-mode
+(require 'org)
+(add-to-list 'auto-mode-alist '("\\.org$" . org-mode))
+(define-key global-map "\C-cl" 'org-store-link)
+(define-key global-map "\C-ca" 'org-agenda)
+(setq org-log-done t)
+;(setq org-agenda-files (list "~/doc/org/home.org"
+;			     "~/doc/org/school.org" 
+;			     "~/doc/org/home.org"))
+
 ;;helm
 ;(require 'helm)
 ;(require 'helm-config)
@@ -54,7 +64,7 @@
 ;                   helm-c-source-buffers-list
 ;                   helm-c-source-recentf
 ;                   helm-c-source-files-in-current-dir
-;                   helm-c-source-mac-spotlight
+;                   Helm-c-source-mac-spotlight
 ;                   helm-c-source-buffer-not-found)
 ;        :buffer "*my helm*"))
 
@@ -86,6 +96,35 @@
 ;(set-face-font 'font-lock-type-face          "BDF東雲ゴシック-12")
 ;(set-face-font 'font-lock-constant-face      "BDF東雲ゴシック-12")
 ;(set-face-font 'font-lock-warning-face       "BDF東雲ゴシック-12")
+
+
+;; font for mac.
+(if (string-match "apple-darwin" (emacs-version)) 
+    (create-fontset-from-ascii-font "Inconsolata-12:weight=normal:slant=normal" nil "myfavoritefontset")
+  (set-fontset-font "fontset-myfavoritefontset"
+		    'japanese-jisx0208
+		    (font-spec :family "TakaoExGothic" :size 12)
+		    nil
+		    'append)
+  (add-to-list 'default-frame-alist '(font . "fontset-myfavoritefontset"))
+  (setq face-font-rescale-alist
+	'(("^-apple-hiragino.*" . 1.2)
+	  (".*osaka-bold.*" . 1.2)
+	  (".*osaka-medium.*" . 1.2)
+	  (".*courier-bold-.*-mac-roman" . 1.0)
+	  (".*monaco cy-bold-.*-mac-cyrillic" . 0.9)
+	  (".*monaco-bold-.*-mac-roman" . 0.9)
+	  ("-cdac$" . 1.3)
+	  (".*Inconsolata.*" . 1.0)))
+  
+  ;; mac specific
+  ;; CommandとOptionを入れ替える
+  (setq ns-command-modifier (quote meta))
+  (setq ns-alternate-modifier (quote super))
+
+  ;;
+  (exec-path-from-shell-initialize)
+)
 
 ;;; font-lockの設定
 (global-font-lock-mode t)
