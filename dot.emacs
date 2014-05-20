@@ -1,4 +1,4 @@
-;;;; -*- mode: emacs-lisp; coding: utf-8 -*-
+;;;; -*- mode: emacs-lisp; coding: iso-2022-7bit -*-
 ;;; 
 ;;; dot.emacs (s1061123@)
 ;;;
@@ -8,19 +8,21 @@
 (setq display-time-24hr-format 't)
 (display-time-mode)
 
-;; load-pathの設定
+;; load-path$B$N@_Dj(B
 ;(setq load-path (cons (expand-file-name "~/src/elisp/") load-path))
+;(setq load-path (cons (expand-file-name "~/.emacs.d/elisp/") load-path))
 
-;;; IMEの設定
+;;; IME$B$N@_Dj(B
 (global-set-key "\C-x\C-j" 'skk-mode)
 (global-set-key "\C-xj" 'skk-auto-fill-mode)
-(global-set-key "\C-xt" 'skk-tutorial)
+;(global-set-key "\C-xt" 'skk-tutorial)
 (setq default-input-method "skk")
 ;(setq skk-kutouten-type 'en)
 (setq skk-kutouten-type 'jp)
-(setq skk-large-jisyo "C:/meadow/packages/etc/skk/SKK-JISYO.L")
+(setq skk-large-jisyo "~/usr/share/dic/SKK-JISYO.L.unannotated")
+;(setq skk-large-jisyo "C:/meadow/packages/etc/skk/SKK-JISYO.L")
 
-;;; font-lockの設定
+;;; font-lock$B$N@_Dj(B
 (global-font-lock-mode t)
 (iswitchb-mode 't)
 (setq next-line-add-newlines 't)
@@ -30,39 +32,47 @@
 ; toggle-global-lazy-font-lock-mode
 ;(global-font-lock-mode t)
 
-;;selected regionに色を付ける
+;;selected region$B$K?'$rIU$1$k(B
 (setq transient-mark-mode t)
 
-;; 対応する括弧に色を付ける
+;; $BBP1~$9$k3g8L$K?'$rIU$1$k(B
 (show-paren-mode t)
 ;(setq show-paren-style 'mixed)
 ;(set-face-background 'show-paren-match-face "gray10")
 ;(set-face-foreground 'show-paren-match-face "SkyBlue")
 
-;; lisp関係で説明を下に表示。
+;; lisp$B4X78$G@bL@$r2<$KI=<(!#(B
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
 ;; for lookup
-(autoload 'lookup "lookup" nil t)
-(autoload 'lookup-region "lookup" nil t)
-(autoload 'lookup-pattern "lookup" nil t)
+(define-key ctl-x-map "l" 'lookup)
+(define-key ctl-x-map "y" 'lookup-region)
+(define-key ctl-x-map "\C-y" 'lookup-pattern)
+(global-set-key "\C-cw" 'lookup-pattern)
+
+;; for Meadow
+;(autoload 'lookup "lookup" nil t)
+;(autoload 'lookup-region "lookup" nil t)
+;(autoload 'lookup-pattern "lookup" nil t)
+
+;; for emacs24
+(load "lookup-autoloads")
 (setq lookup-search-agents
       '(
-	(ndeb "c:/tom/dic" :coding sjis-dos :alias "dics")
+	(ndeb "/Users/tomhayas/usr/share/dic" :coding sjis-dos :alias "dics")
 ;;	(ndeb "c:/tom/dic/dic/eijiro" :coding sjis-dos :alias "dics")
 ;;	(ndeb "c:/tom/dic/dic/waeijiro" :coding sjis-dos :alias "dics")
 	(ndspell)
 	))
-(global-set-key "\C-cw" 'lookup-pattern)
 
 ;; uniquify
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
 ;; for gnuserv
-(require 'gnuserv)
-(gnuserv-start) 
+;(require 'gnuserv)
+;(gnuserv-start) 
 
 ;; for elscreen
 (setq elscreen-prefix-key "\C-]")
@@ -71,12 +81,13 @@
 
 ;;my lisp
 (load "~/.emacs.d/tools")
+(load "~/.emacs.d/elisp/add_auto_header.el")
 
 ;;scrach
 (defun my-make-scratch (&optional arg)
   (interactive)
   (progn
-    ;; "*scratch*" を作成して buffer-list に放り込む
+    ;; "*scratch*" $B$r:n@.$7$F(B buffer-list $B$KJ|$j9~$`(B
     (set-buffer (get-buffer-create "*scratch*"))
     (funcall initial-major-mode)
     (erase-buffer)
@@ -91,14 +102,14 @@
   (mapcar (function buffer-name) (buffer-list)))
 
 (add-hook 'kill-buffer-query-functions
-    ;; *scratch* バッファで kill-buffer したら内容を消去するだけにする
+    ;; *scratch* $B%P%C%U%!$G(B kill-buffer $B$7$?$iFbMF$r>C5n$9$k$@$1$K$9$k(B
           (function (lambda ()
                       (if (string= "*scratch*" (buffer-name))
                           (progn (my-make-scratch 0) nil)
                         t))))
 
 (add-hook 'after-save-hook
-; *scratch* バッファの内容を保存したら *scratch* バッファを新しく作る
+; *scratch* $B%P%C%U%!$NFbMF$rJ]B8$7$?$i(B *scratch* $B%P%C%U%!$r?7$7$/:n$k(B
           (function (lambda ()
                       (unless (member "*scratch*" (my-buffer-name-list))
                         (my-make-scratch 1)))))
@@ -106,15 +117,16 @@
 ;; auto-save-buffer
 (load "~/.emacs.d/auto-save-buffers.el")
 (require 'auto-save-buffers)
-(run-with-idle-timer 0.5 t 'auto-save-buffers) 
+(run-with-idle-timer 2.0 t 'auto-save-buffers) 
+(define-key ctl-x-map "as" 'auto-save-buffers-toggle)
 
 ;; Disable migemo
 ;(setq migemo-isearch-enable-p nil)
 
 ;; Howm
 (require 'howm)
-(setq howm-menu-expiry-hours 2) ;; メニューを 2 時間キャッシュ
-(setq howm-menu-refresh-after-save nil) ;; メモ保存時のメニュー更新も止める
+(setq howm-menu-expiry-hours 2) ;; $B%a%K%e!<$r(B 2 $B;~4V%-%c%C%7%e(B
+(setq howm-menu-refresh-after-save nil) ;; $B%a%bJ]B8;~$N%a%K%e!<99?7$b;_$a$k(B
 (setq howm-menu-file "~/howm/0000-00-00-000000.howm")
 
 ;; Wanderlust email
@@ -133,6 +145,12 @@
 				("\.rdf$" . xml-mode))
 			      auto-mode-alist))
 
+
+;; python mode
+;(add-hook 'python-mode-hook 'insert-encoding-pragma)
+(add-hook 'python-mode-hook 'my-insert-file-local-coding)
+(setq python-indent-guess-indent-offset nil)
+
 ;;Haskell mode
 ;(load "haskell-site-file")
 
@@ -146,6 +164,7 @@
 (when (bound-and-true-p w32-initialized)
   (load "~/.emacs.d/win32"))
 
+(global-set-key "\C-x\C-j" 'skk-mode)
 ;;;
 ;;; end of file
 ;;;
